@@ -69,6 +69,7 @@ variable "listeners_whitelist" {
     enable_whitelist = bool
     whitelist        = string #Comma separated : "192.168.11.1,192.168.0.1/24,192.168.201.18/8"
   }))
+  default = []
 }
 
 variable "pools" {

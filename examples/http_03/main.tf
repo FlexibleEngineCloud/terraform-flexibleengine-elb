@@ -104,8 +104,8 @@ module "elb_web" {
   l7policies = [
     {
       name                    = "redirect_to_https"
-      action                  = "REDIRECT_TO_LISTENER"
-      description             = "l7 policy to redirect http to https"
+      action                  = "REDIRECT_TO_POOL"
+      description             = "l7 policy to request to another pool"
       position                = 1
       listener_index          = 0
       redirect_pool_index     = 1
