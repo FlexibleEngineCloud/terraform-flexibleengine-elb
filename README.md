@@ -1,4 +1,4 @@
-# Flexible Engine Elastic Load Balancer Terraform Module
+# Flexible Engine Enhanced Elastic Load Balancer Terraform Module
 
 Terraform module for deploying an Elastic Load Balancer
 
