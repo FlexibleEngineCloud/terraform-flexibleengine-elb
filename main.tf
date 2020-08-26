@@ -1,7 +1,3 @@
-terraform {
-  required_version = ">= 0.12.0"
-}
-
 resource "flexibleengine_lb_loadbalancer_v2" "loadbalancer" {
   name          = "elb-${var.loadbalancer_name}"
   vip_subnet_id = var.subnet_id
