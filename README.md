@@ -2,7 +2,7 @@
 
 Terraform module for deploying an Elastic Load Balancer
 
-## TF version : 0.12
+## TF version : 0.13
 
 ## Module scope 
 
