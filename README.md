@@ -20,7 +20,7 @@ This Terraform module Elastic Load Balancer for Flexible Engine cover :
 ## Terraform format
 ```hcl
 module "elb_web" {
-  source = "terraform-flexibleengine-modules/elb/flexibleengine"
+  source = "FlexibleEngineCloud/elb/flexibleengine"
   version = "1.0.0"
 
   loadbalancer_name = "my-http-elb"
