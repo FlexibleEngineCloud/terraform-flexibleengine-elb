@@ -303,3 +303,7 @@ inputs = {
 
 ## Outputs
 
+| Name       | Description
+|------------|------------
+| public_ip  | The LB public IP
+| private_ip | The LB private IP
