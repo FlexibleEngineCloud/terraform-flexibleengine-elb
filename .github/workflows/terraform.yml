@@ -2,6 +2,8 @@ name: 'Terraform GitHub Actions'
 on:
   - push
   - pull_request
+env:
+  TF_VERSION: 0.13.0
 jobs:
   terraform:
     name: 'Terraform'
@@ -12,14 +14,14 @@ jobs:
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.13.0
+          tf_actions_version: ${{ env.TF_VERSION }}
           tf_actions_subcommand: 'fmt'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.13.0
+          tf_actions_version: ${{ env.TF_VERSION }}
           tf_actions_subcommand: 'init'
           args: '-input=false'
         env:
@@ -27,7 +29,7 @@ jobs:
       - name: 'Terraform Validate'
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.13.0
+          tf_actions_version: ${{ env.TF_VERSION }}
           tf_actions_subcommand: 'validate'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
