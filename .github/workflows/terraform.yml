@@ -5,12 +5,55 @@ on:
 env:
   TF_VERSION: 0.13.0
 jobs:
+  setup:
+    name: 'Setup'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Configure FE provider'
+        uses: DamianReeves/write-file-action@v1.0
+        with:
+          path: provider.tf
+          contents: |
+            provider "flexibleengine" {
+              auth_url    = var.auth_url
+              domain_name = var.domain_name
+              region      = var.region
+              tenant_name = var.tenant_name
+            }
+            variable "auth_url" {
+              type    = string
+              default = "https://iam.eu-west-0.prod-cloud-ocb.orange-business.com/v3"
+            }
+            variable "domain_name" {
+              type    = string
+              default = "MY_DOMAIN"
+            }
+            variable "region" {
+              type    = string
+              default = "eu-west-0"
+            }
+            variable "tenant_name" {
+              type    = string
+              default = "eu-west-0"
+            }
+          write-mode: preserve
+      - name: 'Upload FE provider configuration'
+        uses: actions/upload-artifact@v2
+        with:
+          name: fe-provider-configuration
+          path: provider.tf
+          retention-days: 1
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
+    needs: setup
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
+      - name: 'Download FE provider configuration'
+        uses: actions/download-artifact@v2
+        with:
+          name: fe-provider-configuration
       - name: 'Terraform Format'
         uses: hashicorp/terraform-github-actions@v0.8.0
         with:
@@ -34,3 +77,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OS_AUTH_URL: OS_AUTH_URL='https://iam.eu-west-0.prod-cloud-ocb.orange-business.com/v3'
+  cleanup:
+    name: 'Clean up'
+    runs-on: ubuntu-latest
+    needs: [setup, terraform]
+    if: always()
+    steps:
+      - name: 'Delete FE provider configuration'
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: fe-provider-configuration
+          failOnError: false
