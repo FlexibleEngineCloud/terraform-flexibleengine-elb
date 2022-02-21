@@ -34,3 +34,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OS_AUTH_URL: whatever
+          OS_REGION_NAME: whatever
